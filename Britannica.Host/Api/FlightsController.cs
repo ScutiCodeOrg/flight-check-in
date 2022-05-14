@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace Britannica.Host.Api
 {
-    public class FlightsController : ApiControllerBase
+    [Route("api/Flights")]
+    [ApiExplorerSettings(GroupName = "Flights")]
+    public class FlightsController : BritannicaControllerBase
     {
         private readonly IMediator _mediator;
         public FlightsController(IMediator mediator)

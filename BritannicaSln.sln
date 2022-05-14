@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C53AD94A-8E6C-4908-BE87-9B3441579946}"
 EndProject
@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Britannica.Application", "B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Britannica.Infrastructure", "Britannica.Infrastructure\Britannica.Infrastructure.csproj", "{0BDA8F8F-EF00-4769-B845-5B596D62DC44}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Britannica.UnitTest", "Britannica.UnitTest\Britannica.UnitTest.csproj", "{1062B562-8F49-4518-9426-EA4CCEEC6133}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{40A1255E-16C9-4D84-8738-627AB113AD16}"
 	ProjectSection(SolutionItems) = preProject
 		Flight-Assessment.pdf = Flight-Assessment.pdf
@@ -24,10 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{40A1255E-1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{3B0B073E-D3AB-4540-B466-17B80EC148E3}"
 	ProjectSection(SolutionItems) = preProject
-		commands.txt = commands.txt
 		Dockerfile = Dockerfile
-		Dockerfile.sdk = Dockerfile.sdk
-		Jenkinsfile = Jenkinsfile
+		..\..\UnicornGroup\Blueprint\Services\UserService\ReadMe.md = ..\..\UnicornGroup\Blueprint\Services\UserService\ReadMe.md
 	EndProjectSection
 EndProject
 Global
@@ -52,10 +48,6 @@ Global
 		{0BDA8F8F-EF00-4769-B845-5B596D62DC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BDA8F8F-EF00-4769-B845-5B596D62DC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BDA8F8F-EF00-4769-B845-5B596D62DC44}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1062B562-8F49-4518-9426-EA4CCEEC6133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1062B562-8F49-4518-9426-EA4CCEEC6133}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1062B562-8F49-4518-9426-EA4CCEEC6133}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1062B562-8F49-4518-9426-EA4CCEEC6133}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,7 +57,6 @@ Global
 		{4CB15B3A-58F9-484E-A9DF-F331720C56B7} = {E9D51207-429E-424A-9F11-31E7E4926B88}
 		{0C829619-7283-4EFA-ADE3-B8591DD655F9} = {E9D51207-429E-424A-9F11-31E7E4926B88}
 		{0BDA8F8F-EF00-4769-B845-5B596D62DC44} = {E9D51207-429E-424A-9F11-31E7E4926B88}
-		{1062B562-8F49-4518-9426-EA4CCEEC6133} = {C53AD94A-8E6C-4908-BE87-9B3441579946}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D5A3DD25-C066-47CE-A21C-93CF790BDE96}

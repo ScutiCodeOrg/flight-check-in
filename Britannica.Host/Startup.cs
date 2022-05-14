@@ -1,23 +1,19 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Britannica.Application;
-using Britannica.Host.Filters;
 using Britannica.Infrastructure;
+using CrossCuttingCunconers.Abstractions.Models.Options;
+using CrossCuttingCunconers.Infrastructure;
+using CrossCuttingCunconers.Infrastructure.OpenApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text.Encodings.Web;
 
 namespace Britannica.Host
 {
@@ -26,15 +22,29 @@ namespace Britannica.Host
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ApplicationName = Configuration["ApplicationName"] ?? string.Empty;
         }
 
         public IConfiguration Configuration { get; }
+        public string ApplicationName { get; }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(Configuration);
-            var mvcBuilder = services.AddControllers(ControllersSetupAction).AddJsonOptions(ControllersJsonSetupAction);
-            services.AddSwaggerGen(SwaggerGenSetupAction);
+
+            services.AddWebHostServices(new AddHostServicesOptions
+            {
+                ApiControllers  = new ApiControllesOptions
+                {
+                    OpenApi = Configuration.GetSection(nameof(OpenApiOptions)).Get<OpenApiOptions>()
+                },
+                OpenID = new OpenIDOptions
+                {
+                    OIDCApi = Configuration.GetSection(nameof(OIDCApiOptions)).Get<OIDCApiOptions>()
+                },
+                Vault = Configuration.GetSection(nameof(VaultOptions))
+            });
+
 
             IContainer container = BuildContainer(services);
             return new AutofacServiceProvider(container);
@@ -53,12 +63,17 @@ namespace Britannica.Host
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseRouting();
-            app.UseAuthorization();
-            app.UseSwagger().UseSwaggerUI(SwaggerUiSetupAction);
-            app.UseEndpoints(EndPointSetupAction);
+
+            app.UseHttpsRedirection()
+                .UseRouting()
+                .UseAuthentication()
+                .UseAuthorization()
+                .UseWebHostOpenApi(ApplicationName)
+                .UseWebHostRequestLogging()
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
 
             using (var scope = app.ApplicationServices.CreateScope())
             {
@@ -67,46 +82,6 @@ namespace Britannica.Host
             }
         }
 
-
-        internal static Action<IEndpointRouteBuilder> EndPointSetupAction =>
-           endpoints =>
-           {
-               endpoints.MapControllers();
-           };
-
-        private static Action<MvcOptions> ControllersSetupAction =>
-            options =>
-            {
-                options.Filters.Add<ApiExceptionFilterAttribute>();
-            };
-
-        private static Action<JsonOptions> ControllersJsonSetupAction =>
-            options =>
-            {
-                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-                options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Default;
-            };
-
-        internal static Action<SwaggerUIOptions> SwaggerUiSetupAction =>
-           c =>
-           {
-               c.RoutePrefix = "";
-               c.SwaggerEndpoint("/swagger/v1/swagger.json", "Britannica API V1");
-           };
-
-        private static Action<SwaggerGenOptions> SwaggerGenSetupAction =>
-            setupAction =>
-            {
-                setupAction.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Avi Nessimian",
-                        Email = "nessimian.avi@gmail.com",
-                        Url = new Uri("https://github.com/AviNessimian"),
-                    }
-                });
-            };
 
         private static IContainer BuildContainer(IServiceCollection services)
         {

@@ -8,4 +8,8 @@
     <Folder Include="ValueObjects\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="CrossCuttingCunconers.Abstractions" Version="1.0.9" />
+  </ItemGroup>
+
 </Project>
