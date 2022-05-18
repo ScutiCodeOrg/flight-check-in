@@ -3,8 +3,6 @@ Design and implement a .Net (Core) Web API solution, which automates check-in in
 
 ##### [Go To Assessment](/Flight-Assessment.pdf)
 
-##### [Go To Demo](http://ec2-15-161-128-43.eu-south-1.compute.amazonaws.com:8090/index.html)
-
 
 ## Table of Contents:
   - DotNet Core 3.1
