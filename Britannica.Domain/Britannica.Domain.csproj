@@ -1,15 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="ValueObjects\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="ValueObjects\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CrossCuttingCunconers.Abstractions" Version="1.0.9" />
-  </ItemGroup>
 
 </Project>

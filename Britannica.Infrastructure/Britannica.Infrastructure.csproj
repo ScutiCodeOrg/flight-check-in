@@ -1,17 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Britannica.Application\Britannica.Application.csproj" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<ProjectReference Include="..\Britannica.Application\Britannica.Application.csproj" />
+	</ItemGroup>
 
 
 	<ItemGroup>
-		<PackageReference Include="CrossCuttingCunconers.Infrastructure" Version="1.0.26" />
+		<PackageReference Include="CrossCuttingCunconers.Logging" Version="1.0.0-alpha" />
+		<PackageReference Include="CrossCuttingCunconers.Secrets" Version="1.0.0-alpha" />
+		<PackageReference Include="CrossCuttingCunconers.OpenIdConnect" Version="1.0.0-alpha" />
+		
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.14" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.14" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.14" />

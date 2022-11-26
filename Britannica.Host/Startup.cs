@@ -2,11 +2,13 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Britannica.Application;
 using Britannica.Infrastructure;
-using CrossCuttingCunconers.Abstractions.Models.Options;
-using CrossCuttingCunconers.Infrastructure;
-using CrossCuttingCunconers.Infrastructure.OpenApi;
+using CrossCuttingCunconers.Logging;
+using CrossCuttingCunconers.OpenApi;
+using CrossCuttingCunconers.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text.Json;
 
 namespace Britannica.Host
 {
@@ -32,23 +35,26 @@ namespace Britannica.Host
         {
             services.AddSingleton(Configuration);
 
-            services.AddWebHostServices(new AddHostServicesOptions
-            {
-                ApiControllers  = new ApiControllesOptions
+            services.AddHttpContextAccessor();
+            services.AddControllers()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddNewtonsoftJson(o => o.UseCamelCasing(true))
+                .AddJsonOptions(options =>
                 {
-                    OpenApi = Configuration.GetSection(nameof(OpenApiOptions)).Get<OpenApiOptions>()
-                },
-                OpenID = new OpenIDOptions
-                {
-                    OIDCApi = Configuration.GetSection(nameof(OIDCApiOptions)).Get<OIDCApiOptions>()
-                },
-                Vault = Configuration.GetSection(nameof(VaultOptions))
-            });
+                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                });
 
+            services.AddOpenApiServices(Configuration);
+            services.AddOICDApi(Configuration.GetSection(nameof(OIDCApiOptions)).Get<OIDCApiOptions>());
+
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
 
             IContainer container = BuildContainer(services);
             return new AutofacServiceProvider(container);
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

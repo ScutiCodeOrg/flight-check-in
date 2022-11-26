@@ -1,5 +1,4 @@
-﻿using CrossCuttingCunconers.Infrastructure.WebApi;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Britannica.Host.Api

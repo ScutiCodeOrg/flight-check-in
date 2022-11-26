@@ -1,5 +1,5 @@
-using CrossCuttingCunconers.Infrastructure.Logging;
-using CrossCuttingCunconers.Infrastructure.Vault.Extensions;
+using CrossCuttingCunconers.Logging;
+using CrossCuttingCunconers.Secrets.Extensions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -12,18 +12,24 @@ namespace Britannica.Host
         public static void Main(string[] args)
         {
             var host = CreateWebHostBuilder(args);
-            //host = host.ConfigureDynamicTlsWithVault();
             IWebHost webhost = host.Build();
             webhost.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((hostingContext, config) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            var webHostBuilder = WebHost.CreateDefaultBuilder(args);
+            webHostBuilder.ConfigureAppConfiguration((hostingContext, config) =>
             {
-                config.AddVault().AddLogging(hostingContext.HostingEnvironment.EnvironmentName);
-            })
-            .UseSerilog()
-            .UseStartup<Startup>();
+                var configurationRoot = config.AddSecrets().Build();
+                configurationRoot.AddLogging();
+            });
+
+            webHostBuilder.UseSerilog();
+
+            webHostBuilder.UseStartup<Startup>();
+
+            return webHostBuilder;
+        }
     }
 }
