@@ -11,6 +11,7 @@ COPY  ["/Britannica.Application/*.csproj", "./Britannica.Application/"]
 COPY  ["/Britannica.Infrastructure/*.csproj", "./Britannica.Infrastructure/"]
 COPY  ["/Britannica.Host/*.csproj", "./Britannica.Host/"]
 #COPY  ["/Britannica.UnitTest/*.csproj", "./Britannica.UnitTest/"]
+COPY ./nuget.config .
 RUN dotnet restore
 
 # run tests on docker build

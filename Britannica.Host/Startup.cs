@@ -88,8 +88,7 @@ namespace Britannica.Host
             }
         }
 
-
-        private static IContainer BuildContainer(IServiceCollection services)
+        private IContainer BuildContainer(IServiceCollection services)
         {
             var builder = new ContainerBuilder();
             var assemblyList = new List<Assembly>
@@ -99,7 +98,7 @@ namespace Britannica.Host
             };
 
             builder.RegisterApplication(assemblyList);
-            builder.RegisterInfrastructure();
+            builder.RegisterInfrastructure(Configuration);
 
             builder.Populate(services);
 

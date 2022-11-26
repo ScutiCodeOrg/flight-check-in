@@ -19,9 +19,7 @@ namespace Britannica.Infrastructure
         {
             var configurationDbPath = configuration["DbPath"];
             if (string.IsNullOrWhiteSpace(configurationDbPath))
-            {
-                configurationDbPath = $"C:\\BritannicaDb.db";
-            }
+                throw new ArgumentNullException(nameof(configurationDbPath));
             _dbPath = configurationDbPath;
         }
         public DbSet<FlightEntity> Flights { get; set; }

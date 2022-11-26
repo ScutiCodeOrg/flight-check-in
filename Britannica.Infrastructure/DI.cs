@@ -15,9 +15,9 @@ namespace Britannica.Infrastructure
     {
         public static Assembly Assembly => Assembly.GetExecutingAssembly();
 
-        public static ContainerBuilder RegisterInfrastructure(this ContainerBuilder builder)
+        public static ContainerBuilder RegisterInfrastructure(this ContainerBuilder builder, IConfiguration configuration)
         {
-            builder.RegisterContext<ApplicationDbContext>();
+            builder.RegisterContext<ApplicationDbContext>(configuration["DbPath"]);
 
             builder.RegisterType<DateTimeService>().As<IDateTime>().InstancePerLifetimeScope();
             builder.RegisterType<FlightRepository>().As<IFlightRepository>().InstancePerLifetimeScope();
@@ -32,7 +32,7 @@ namespace Britannica.Infrastructure
         /// </summary>
         /// <typeparam name="TContext"></typeparam>
         /// <param name="builder"></param>
-        private static void RegisterContext<TContext>(this ContainerBuilder builder) where TContext : DbContext
+        private static void RegisterContext<TContext>(this ContainerBuilder builder, string dataSource) where TContext : DbContext
         {
             //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=BritannicaDb.db"));
             builder.Register(componentContext =>
@@ -42,7 +42,7 @@ namespace Britannica.Infrastructure
                 var dbContextOptions = new DbContextOptions<TContext>(new Dictionary<Type, IDbContextOptionsExtension>());
                 var optionsBuilder = new DbContextOptionsBuilder<TContext>(dbContextOptions)
                     .UseApplicationServiceProvider(serviceProvider)
-                    .UseSqlite("Data Source=BritannicaDb.db");;
+                    .UseSqlite($"Data Source={dataSource}");;
 
                 return optionsBuilder.Options;
             }).As<DbContextOptions<TContext>>().InstancePerLifetimeScope();

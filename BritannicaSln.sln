@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C53AD94A-8E6C-4908-BE87-9B3441579946}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E9D51207-429E-424A-9F11-31E7E4926B88}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Britannica.Host", "Britannica.Host\Britannica.Host.csproj", "{BF0D0B52-D82A-420B-B470-EF1F137CFD30}"
@@ -20,10 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{40A1255E-1
 		Flight-Assessment.pdf = Flight-Assessment.pdf
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{3B0B073E-D3AB-4540-B466-17B80EC148E3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{86FA4340-0F0C-4430-A7FC-2053F6E102A7}"
 	ProjectSection(SolutionItems) = preProject
 		Dockerfile = Dockerfile
-		..\..\UnicornGroup\Blueprint\Services\UserService\ReadMe.md = ..\..\UnicornGroup\Blueprint\Services\UserService\ReadMe.md
+		nuget.config = nuget.config
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global

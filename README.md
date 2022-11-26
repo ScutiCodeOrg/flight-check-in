@@ -20,7 +20,7 @@ Use the following commands to build and run your Docker image:
 
 ```
  docker build -t aspnetapp .
- docker run -d -p 8080:80 --name myapp aspnetapp
+ docker run -d -p 8099:80 --name myapp aspnetapp
  ```
 
 
