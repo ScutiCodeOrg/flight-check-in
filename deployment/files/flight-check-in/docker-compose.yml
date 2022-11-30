@@ -21,3 +21,4 @@ services:
       - flight-check-in-logs:/app/logs/
     networks:
       - flight-check-in-network
+
