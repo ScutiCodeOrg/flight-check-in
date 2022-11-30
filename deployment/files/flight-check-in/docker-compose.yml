@@ -1,0 +1,23 @@
+version: '3.7'
+networks:
+  flight-check-in-network:
+    external:
+      name: blueprint-network
+    
+volumes:
+  flight-check-in-logs:
+
+services:
+  flight-check-in:
+    image: unicorngroupnamespace/flight-check-in:latest
+    ports:
+      - 9050:9050
+    environment:
+      - "ASPNETCORE_ENVIRONMENT=Docker"
+      - "Serilog__MinimumLevel__Default=Information"
+      - "LogFilePath=./logs/"
+      - "OpenApiOptions__OIDC__Authority=https://account.${DOMAIN_NAME}"
+    volumes:
+      - flight-check-in-logs:/app/logs/
+    networks:
+      - flight-check-in-network

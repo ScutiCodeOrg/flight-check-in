@@ -1,0 +1,28 @@
+---
+- name: Install
+  hosts: all
+  become: true
+  vars:
+    domain_name: ""
+
+  tasks:
+  - name: copy directory to remote host
+    copy:
+      src: flight-check-in
+      dest: /etc/devops/
+      owner: ubuntu
+      group: ubuntu
+      mode: 0600
+
+  - name: docker-compose up
+    shell: 
+      cmd: |
+        docker-compose -f docker-compose.yml pull
+        docker-compose -f docker-compose.yml up -d 
+      chdir: "/etc/devops/admin-bff/"
+    environment:
+      COMPOSE_PROJECT_NAME: blueprint-services
+      DOMAIN_NAME: "{{ domain_name }}"
+
+
+    

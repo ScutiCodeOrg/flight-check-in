@@ -1,5 +1,3 @@
-ARG Branch=develop
-
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
 
@@ -22,7 +20,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
-FROM unicorngroupnamespace/aspnet-base:$Branch AS final
+FROM unicorngroupnamespace/aspnet-base:develop AS final
 LABEL maintainer="avin@scuticode.com"
 ENV ASPNETCORE_URLS "https://+:10000"
 WORKDIR /app

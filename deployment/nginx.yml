@@ -1,0 +1,47 @@
+---
+- name: Nginx 
+  hosts: all
+  become: true
+  vars:
+    domain_name: ""
+    route53_aws_access_key_id: ""
+    route53_aws_secret_access_key: ""
+    
+  tasks:
+  - name: Template nginx.conf.j2
+    template:
+      src: templates/nginx.conf.j2
+      dest: /etc/nginx/conf.d/admin-bff.conf
+
+  - name: Verify the syntax of nginx configuration
+    shell: nginx -t
+
+  - name: Reload nginx
+    service: name=nginx state=restarted
+
+  - name: get public IP
+    uri:
+      url: https://api.ipify.org?format=json
+      method: Get
+    changed_when: false
+    register: public_ip
+
+  - name: print public IP
+    debug:
+      msg: "{{ public_ip.json.ip }}"
+
+  - name: Add records to route53
+    route53:
+      aws_access_key: "{{ route53_aws_access_key_id }}"
+      aws_secret_key: "{{ route53_aws_secret_access_key }}"
+      state: present
+      zone: "{{domain_name}}"
+      record: "{{ item }}"
+      type: A
+      ttl: 7200
+      overwrite: yes
+      value:
+        - "{{ public_ip.json.ip }}"
+      wait: yes
+    loop:
+      - "light-check-in.{{domain_name}}"
