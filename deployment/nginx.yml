@@ -44,4 +44,4 @@
         - "{{ public_ip.json.ip }}"
       wait: yes
     loop:
-      - "light-check-in.{{domain_name}}"
+      - "flight-check-in.{{domain_name}}"
