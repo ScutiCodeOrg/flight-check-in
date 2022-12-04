@@ -11,7 +11,7 @@
   - name: Template nginx.conf.j2
     template:
       src: templates/nginx.conf.j2
-      dest: /etc/nginx/conf.d/admin-bff.conf
+      dest: /etc/nginx/conf.d/flight-check-in.conf
 
   - name: Verify the syntax of nginx configuration
     shell: nginx -t
