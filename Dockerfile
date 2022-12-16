@@ -9,7 +9,9 @@ COPY  ["/Britannica.Application/*.csproj", "./Britannica.Application/"]
 COPY  ["/Britannica.Infrastructure/*.csproj", "./Britannica.Infrastructure/"]
 COPY  ["/Britannica.Host/*.csproj", "./Britannica.Host/"]
 #COPY  ["/Britannica.UnitTest/*.csproj", "./Britannica.UnitTest/"]
+
 COPY ./nuget.config ./
+RUN sed -i "s|localhost:5555|host.docker.internal:5555|g" ./nuget.config
 RUN dotnet restore
 
 # run tests on docker build
