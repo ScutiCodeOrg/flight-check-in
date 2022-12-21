@@ -37,7 +37,6 @@ namespace Britannica.Host
 
             services.AddHttpContextAccessor();
             services.AddControllers()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddNewtonsoftJson(o => o.UseCamelCasing(true))
                 .AddJsonOptions(options =>
                 {

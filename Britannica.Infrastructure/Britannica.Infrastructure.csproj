@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -13,10 +13,10 @@
 		<PackageReference Include="CrossCuttingCunconers.Logging" Version="1.0.0-alpha" />
 		<PackageReference Include="CrossCuttingCunconers.Secrets" Version="1.0.0-alpha" />
 		<PackageReference Include="CrossCuttingCunconers.OpenIdConnect" Version="1.0.0-alpha" />
-		
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.14" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.14" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.14" />
+
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.0" />
 	</ItemGroup>
 
 </Project>
