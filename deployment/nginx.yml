@@ -22,7 +22,7 @@
   - name: Reload nginx 
     shell: 
       cmd: |
-        sh exec_in_docker_container.sh nginx service nginx reload
+        sh exec_in_docker_container.sh nginx service nginx restart
       chdir: /etc/devops/nginx/
 
   - name: get public IP
