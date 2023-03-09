@@ -10,11 +10,12 @@ volumes:
 services:
   flight-check-in:
     image: unicorngroupnamespace/flight-check-in:latest
+    container_name: light-check-in
     ports:
       - 10000:10000
     environment:
       - "ASPNETCORE_ENVIRONMENT=Docker"
-      - "Serilog__MinimumLevel__Default=Information"
+      - "Serilog__MinimumLevel__Default=Warning"
       - "LogFilePath=./logs/"
       - "OpenApiOptions__OIDC__Authority=https://account.${DOMAIN_NAME}"
     volumes:

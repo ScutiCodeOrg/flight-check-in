@@ -22,7 +22,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
-FROM unicorngroupnamespace/aspnet6-base:develop AS final
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
 
 # update + upgrade system
 RUN apt-get update -y && apt-get upgrade -y
@@ -31,6 +31,6 @@ LABEL maintainer="avin@scuticode.com"
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-ENV ASPNETCORE_URLS "https://+:10000"
+ENV ASPNETCORE_URLS "http://+:10000"
 
 ENTRYPOINT ["dotnet", "Britannica.Host.dll"]

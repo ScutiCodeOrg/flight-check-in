@@ -21,7 +21,6 @@
         docker-compose -f docker-compose.yml up -d 
       chdir: "/etc/devops/flight-check-in/"
     environment:
-      COMPOSE_PROJECT_NAME: blueprint-services
       DOMAIN_NAME: "{{ domain_name }}"
 
 
