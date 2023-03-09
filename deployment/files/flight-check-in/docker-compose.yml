@@ -10,7 +10,7 @@ volumes:
 services:
   flight-check-in:
     image: unicorngroupnamespace/flight-check-in:latest
-    container_name: light-check-in
+    container_name: flight-check-in
     ports:
       - 10000:10000
     environment:
