@@ -14,10 +14,16 @@
       dest: /etc/nginx/conf.d/flight-check-in.conf
 
   - name: Verify the syntax of nginx configuration
-    shell: nginx -t
+    shell: 
+      cmd: |
+        sh exec_in_docker_container.sh nginx nginx -t
+      chdir: /etc/devops/nginx/
 
-  - name: Reload nginx
-    service: name=nginx state=restarted
+  - name: Reload nginx 
+    shell: 
+      cmd: |
+        sh exec_in_docker_container.sh nginx service nginx reload
+      chdir: /etc/devops/nginx/
 
   - name: get public IP
     uri:
