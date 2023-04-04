@@ -11,7 +11,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-		<PackageReference Include="CrossCuttingCunconers.OpenApi" Version="1.0.0-alpha" />
+		<PackageReference Include="CrossCuttingCunconers.OpenApi" Version="1.0.0-beta-01" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
 		  <PrivateAssets>all</PrivateAssets>
