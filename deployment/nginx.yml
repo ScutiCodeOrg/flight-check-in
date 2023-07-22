@@ -44,7 +44,7 @@
       zone: "{{domain_name}}"
       record: "{{ item }}"
       type: A
-      ttl: 7200
+      ttl: 60
       overwrite: yes
       value:
         - "{{ public_ip.json.ip }}"
