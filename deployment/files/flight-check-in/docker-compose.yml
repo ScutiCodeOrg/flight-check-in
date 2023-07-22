@@ -11,6 +11,7 @@ services:
   flight-check-in:
     image: unicorngroupnamespace/flight-check-in:latest
     container_name: flight-check-in
+    restart: unless-stopped
     #ports:
     #  - 10000:10000
     environment:
